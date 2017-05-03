@@ -1,0 +1,6 @@
+<h1>Create a Todo</h1>
+
+<%= form_for @todo, url: todos_path, html: { id: 'todo-form' } do |f| %>
+  <%= f.text_field :title %>
+  <%= f.submit "Save" %>
+<% end %>
