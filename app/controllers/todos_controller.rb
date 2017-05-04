@@ -19,4 +19,10 @@ class TodosController < ApplicationController
     end
   end
 
+  def update
+    @todo = current_user.todos.find(params[:id])
+    @todo.incomplete? ? @todo.complete! : @todo.incomplete!
+    redirect_back(fallback_location: todos_path)
+  end
+
 end
