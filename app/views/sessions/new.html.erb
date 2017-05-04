@@ -1,0 +1,10 @@
+<h1>Please login</h1>
+<% unless flash[:notice].blank? %>
+  <div class="error"><%= flash[:notice] %></div>
+<% end %>
+
+<%= form_tag sessions_path, method: :post, id: 'login-form' do %>
+  <p><%= text_field_tag :username %></p>
+  <p><%= password_field_tag :password %></p>
+  <p><%= submit_tag "Login" %></p>
+<% end %>
