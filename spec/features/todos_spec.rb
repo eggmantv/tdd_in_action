@@ -1,14 +1,27 @@
 require 'rails_helper'
 
 feature 'todos' do
-  scenario "visit todos page should successfully" do
-    visit todos_path
+  feature 'not logged in' do
+    scenario "visit todos page should failed" do
+      visit todos_path
 
-    expect(page).to have_css 'h1', text: 'Todos list'
-    expect(page).to have_css 'a', text: 'Create a Todo'
+      expect(page).to have_current_path(new_session_path)
+    end
   end
 
-  feature 'new todo' do
+  feature 'logged in' do
+    background do
+      @user = create_user
+      login_user @user
+    end
+
+    scenario "should open todos page successfully" do
+      visit todos_path
+
+      expect(page).to have_css 'h1', text: 'Todos list'
+      expect(page).to have_css 'a', text: 'Create a Todo'
+    end
+
     scenario "should open new page successfully" do
       visit new_todo_path
 

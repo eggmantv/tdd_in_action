@@ -1,7 +1,9 @@
 class TodosController < ApplicationController
 
+  before_action :auth_user
+
   def index
-    @todos = Todo.order("id desc")
+    @todos = current_user.todos.order("id desc")
   end
 
   def new
@@ -9,7 +11,7 @@ class TodosController < ApplicationController
   end
 
   def create
-    @todo = Todo.new(params.require(:todo).permit(:title))
+    @todo = current_user.todos.new(params.require(:todo).permit(:title))
     if @todo.save
       redirect_to todos_path
     else
